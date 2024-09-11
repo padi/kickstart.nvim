@@ -832,11 +832,23 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
+    dependencies = {
+      -- No strict dependencies but just putting all the colorschemes here:
+      -- kanagawa theme:
+      -- https://github.com/rebelot/kanagawa.nvim
+      {
+        'rebelot/kanagawa.nvim',
+        lazy = false,
+        priority = 1000,
+        opts = {},
+      },
+    },
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as:
       -- tokyonight-storm, tokyonight-moon, or tokyonight-day
+      -- kanagawa-wave, kanagawa-dragon, kanagawa-lotus
       -- For other installed colorschemes, type `:Telescope colorscheme`
       --
       -- Personally, I like the following so far:
