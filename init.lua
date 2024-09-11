@@ -321,6 +321,7 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>p', group = '[P]ick' },
       },
     },
   },
@@ -834,11 +835,33 @@ require('lazy').setup({
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- any other, such as:
+      -- tokyonight-storm, tokyonight-moon, or tokyonight-day
+      -- For other installed colorschemes, type `:Telescope colorscheme`
+      --
+      -- Personally, I like the following so far:
+      -- darkblue, evening, tokyonight
+      vim.cmd.colorscheme 'darkblue'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
+    end,
+    config = function()
+      -- Lua script to randomize from all installed colorschemes
+      local function random_colorscheme()
+        -- Get a list of all available colorschemes
+        -- check output with :lua print(vim.inspect(vim.fn.getcompletion('', 'color')))
+        local colorschemes = vim.fn.getcompletion('', 'color')
+
+        -- Pick a random colorscheme from the list
+        local random_index = math.random(1, #colorschemes)
+        local chosen_colorscheme = colorschemes[random_index]
+
+        -- Apply the chosen colorscheme
+        vim.cmd('colorscheme ' .. chosen_colorscheme)
+      end
+
+      vim.keymap.set('n', '<leader>pc', random_colorscheme, { desc = '[P]ick Random [C]olorscheme (from list of already installed themes)' })
     end,
   },
 
